@@ -1,7 +1,12 @@
+import React from "react";
 import cross from "../assets/cross.svg";
 import circle from "../assets/circle.svg";
 
-const Cell = ({ cell, id, makeMove }) => {
+const Cell = React.memo(({ cell, id, makeMove }) => {
+  const move = () => {
+    makeMove(id);
+  };
+
   return (
     <div
       className={[
@@ -9,7 +14,7 @@ const Cell = ({ cell, id, makeMove }) => {
         id % 3 !== 2 ? "border-r-4" : "",
         id < 6 ? "border-b-4" : "",
       ].join(" ")}
-      onClick={() => makeMove(id)}
+      onClick={move}
     >
       {cell &&
         (cell === "circle" ? (
@@ -19,6 +24,6 @@ const Cell = ({ cell, id, makeMove }) => {
         ))}
     </div>
   );
-};
+});
 
 export default Cell;

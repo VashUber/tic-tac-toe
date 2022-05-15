@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Cell from "./components/Cell";
 
 function App() {
@@ -13,13 +13,13 @@ function App() {
     setBoard(board);
   };
 
-  const makeMove = (id) => {
+  const makeMove = useCallback((id) => {
     setBoard((prev) => {
       prev[id] = move % 2 ? "circle" : "cross";
       return prev;
     });
     setMove((prev) => ++prev);
-  };
+  }, []);
 
   useEffect(() => {
     initBoard();
