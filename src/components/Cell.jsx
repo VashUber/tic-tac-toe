@@ -18,9 +18,9 @@ const Cell = React.memo(({ cell, id, makeMove }) => {
     >
       {cell &&
         (cell === "circle" ? (
-          <img src={circle} alt="" />
+          <img src={circle} alt="circle" />
         ) : (
-          <img src={cross} alt="" />
+          <img src={cross} alt="cross" />
         ))}
     </div>
   );
