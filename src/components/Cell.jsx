@@ -4,7 +4,7 @@ import circle from "../assets/circle.svg";
 
 const Cell = React.memo(({ cell, id, makeMove }) => {
   const move = () => {
-    makeMove(id);
+    if (!cell) makeMove(id);
   };
 
   return (

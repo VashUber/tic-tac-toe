@@ -1,10 +1,12 @@
 import { useCallback, useEffect, useState } from "react";
 import Cell from "./components/Cell";
+import Modal from "./components/Modal";
 
 function App() {
   const [board, setBoard] = useState([]);
   const [move, setMove] = useState(0);
   const [win, setWin] = useState(false);
+  const [draw, setDraw] = useState(false);
 
   const winPositions = [
     [true, true, true, null, null, null, null, null, null],
@@ -25,6 +27,7 @@ function App() {
     setBoard(board);
     setMove(0);
     setWin(false);
+    setDraw(false);
   };
 
   const checkWin = () => {
@@ -41,6 +44,9 @@ function App() {
         }
       });
       if (check.circle === 3 || check.cross === 3) setWin(true);
+      else if (move === 9) {
+        setDraw(true);
+      }
     });
   };
 
@@ -52,8 +58,6 @@ function App() {
           return prev;
         });
         setMove((prev) => ++prev);
-      } else {
-        initBoard();
       }
     },
     [move, win]
@@ -69,7 +73,9 @@ function App() {
 
   return (
     <div className="flex justify-center h-screen items-center flex-col">
-      {win && <div>WIN</div>}
+      {(win || draw) && (
+        <Modal initBoard={initBoard} text={win ? "Win" : "Draw"} />
+      )}
       <div className="w-96 grid grid-cols-3">
         {board.map((cell, i) => {
           return <Cell key={i} cell={cell} id={i} makeMove={makeMove} />;
