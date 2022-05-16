@@ -1,10 +1,13 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import { makeMove } from "../store/ticTacToeSlice";
 import cross from "../assets/cross.svg";
 import circle from "../assets/circle.svg";
 
-const Cell = React.memo(({ cell, id, makeMove }) => {
+const Cell = React.memo(({ cell, id }) => {
+  const dispatch = useDispatch();
   const move = () => {
-    if (!cell) makeMove(id);
+    if (!cell) dispatch(makeMove(id));
   };
 
   return (
